@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-md-3 col-sm-12">
+        <div class="card m-2">
+            <div class="card-hearding">
+                <h4 class="text-center">add user infromation</h4>
+            </div>
+            <div class="p-3">
+                <form [formGroup]="userinformationfrom">
+                    <label>Name</label><br>
+                    <input class="form-control" type="text" placeholder="Pleace Enter Name" formControlName="name"
+                        name="name">
+                    <div *ngIf="userinformationfrom.controls.name.errors && userinformationfrom.controls.name.touched">
+                        <p class="text-danger ml-2" *ngIf="userinformationfrom.controls.name.errors.required">Name is
+                            requried</p>
+                    </div>
+                    <label>Age</label><br>
+                    <select class="form-control" formControlName="age">
+                        <option hidden selected value="">--selectage---</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>25</option>
+                        <option>26</option>
+                    </select>
+                    <div *ngIf="userinformationfrom.controls.age.errors && userinformationfrom.controls.age.touched">
+                        <p class="text-danger ml-2" *ngIf="userinformationfrom.controls.age.errors.required">Name is
+                            requried</p>
+                    </div>
+                    <label>Gender</label>
+                    <div>
+                        <input type="radio" formControlName="gender" name='gender' class="m-2" value="male">Male
+                        <input type="radio" formControlName="gender" name="gender" class="m-2" value="Female">Female
+                    </div>
+                    <div
+                        *ngIf="userinformationfrom.controls.gender.errors && userinformationfrom.controls.gender.touched">
+                        <p class="text-danger ml-2" *ngIf="userinformationfrom.controls.gender.errors.required">Name is
+                            requried</p>
+                    </div>
+                    <div class="row my-2">
+                        <label>Hobbies</label>
+                    </div>
+                    <div formArrayName="hobbies"
+                        *ngFor="let hobby of userinformationfrom.get('hobbies')['controls'] let index=index ">
+                        <div [formGroupName]="index">
+                            <div class="d-flex">
+                                <input class="form-control" placeholder="Hobbies" formControlName="hobby">
+                                <button class="btn btn-circle-skin btn-transparent-theme ml-3" *ngIf="index==0"
+                                    (click)="addtoarryhobby()">+</button>
+                                <button class="btn btn-circle-skin btn-transparent-theme ml-3" *ngIf="index>0"
+                                    (click)="deletearryhobby(index)">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-5">
+                        <input type="checkbox" formControlName="checked" (click)="validate($event)">All the information
+                        verified
+                    </div>
+                    <button class="btn dark-background btn-skin " (click)="addinformarion()"
+                        [disabled]="userinformationfrom.invalid">Add</button>&nbsp;
+                    <button class="btn dark-background btn-skin ">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-12">
+        <div class="card m-2">
+            <div class="card-hearding">
+                <h4 class="text-center"> user infromation list</h4>
+            </div>
+            <div class="row p-2">
+                <input class="ml-auto" [(ngModel)]="searchItem" placeholder="search by name">
+            </div>
+            <div class="p-2 table-responsive">
+                <table class="table table-bordered">
+                    <thead class="dark-background">
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Hobbies</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let information of userinformationArry |search:searchItem let index=index">
+                            <td>{{information.name}}</td>
+                            <td>{{information.age}}</td>
+                            <td>{{information.gender}}</td>
+                            <td>
+                                <p *ngFor="let hobby of information.hobbies">{{hobby.hobby}}</p>
+                            </td>
+                            <td><a href="#" (click)="deleteData(index)">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

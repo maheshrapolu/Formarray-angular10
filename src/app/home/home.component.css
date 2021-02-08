@@ -1,0 +1,18 @@
+.card-hearding{
+    border-bottom: 2px solid black;
+}
+.btn-circle-skin {
+    border-radius: 50%;
+    border: 2px solid black;
+}
+.btn-transparent-theme {
+    background: transparent;
+}
+
+.form-control {
+    margin: 3px 0px;
+}
+.btn-skin {
+    padding: 5px 48px;
+    margin:5px 2px;
+}
